@@ -1,11 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeitKSSChecker</title>
-</head>
-<body>
-    <h1>Welcome</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KSS Coder</title>
+    <!-- UIkit CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css"
+    />
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+  </head>
+  <body>
+    <nav class="uk-navbar-container uk-margin" uk-navbar>
+      <div class="uk-navbar-center">
+        <a class="uk-navbar-item uk-logo" href="#">KSS Coder</a>
+      </div>
+    </nav>
+    <div class="uk-container">
+      <form class="uk-form-horizontal">
+        <div class="uk-margin">
+          <label class="uk-form-label" for="form-stacked-select">
+            Select Your Name
+          </label>
+          <div class="uk-form-controls">
+            <select class="uk-select" id="form-stacked-select">
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+              <option value="1">Option</option>
+            </select>
+          </div>
+        </div>
+        <div class="uk-margin">
+          <label class="uk-form-label" for="dateforprogram">
+            Pick Date
+          </label>
+          <div class="uk-form-controls">
+            <input type="date" class="uk-input" id="dateforprogram" />
+          </div>
+        </div>
+        <div class="uk-margin">
+          <div class="uk-form-label">Choose Question</div>
+          <div class="uk-form-controls uk-form-controls-text">
+            <label>
+              <input class="uk-radio" type="radio" name="radio1" value="01" checked />
+              Question 01
+            </label>
+            <br />
+            <label>
+              <input class="uk-radio" type="radio" name="radio1" value="02" />
+              Question 02
+            </label>
+            <br />
+            <label>
+              <input class="uk-radio" type="radio" name="radio1" value="03"/>
+              Question 03
+            </label>
+          </div>
+        </div>
+        <button id="submitBtn" class="uk-button uk-button-primary">
+          Submit
+        </button>
+      </form>
+      <div class="outputContainer uk-container uk-margin">
+        <ul uk-tab>
+          <li class="uk-active"><a href="#">Results</a></li>
+          <li><a href="#">Code</a></li>
+        </ul>
+        <code id="results" class="container"></code>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(() => {
+        $('.outputContainer').hide()
+        Date.prototype.toDateInputValue = function () {
+          var local = new Date(this)
+          local.setMinutes(this.getMinutes() - this.getTimezoneOffset())
+          return local.toJSON().slice(0, 10)
+        }
+        $('#dateforprogram').val(new Date().toDateInputValue())
+      })
+
+      $('#submitBtn').on('click', (e) => {
+        e.preventDefault()
+        const userTag = $('select option:selected').val()
+        console.log(userTag)
+        const selectedDate = $('#dateforprogram').val().split('-')
+        const questionNumber = $('input[name="radio1"]:checked').val()
+        const date = new Date(
+          selectedDate[0],
+          selectedDate[1] - 1,
+          selectedDate[2],
+        )
+        const githubURL = `https://raw.githubusercontent.com/${userTag}/Codeit-KSS/main/${selectedDate[0]}_${selectedDate[1]}_${selectedDate[2]}_${questionNumber}`
+        console.log(githubURL)
+        const name = $('#form-stacked-select').val()
+        // $.post('localhost:3000/', {
+        //     name,
+
+        // }, (data, status) => {})
+      })
+    </script>
+  </body>
 </html>

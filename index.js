@@ -1,17 +1,25 @@
 const express = require("express")
 const getAppendingData = require("./content/content")
+var bodyParser = require('body-parser')
 const PythonShell = require("python-shell").PythonShell
 const app = express()
 const fs = require("fs")
-
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 app.use(express.static("public"))
 
 
+app.post('/api/', (req, res) => { 
+  console.log(req)
+  
+}) 
+
 try {
   const appendingData = getAppendingData()
   const current = fs.readFileSync("temp.py", "utf8")
-  const data = appendingData[0] + current + appendingData[1]
+  const data = `${appendingData[0]}codetotest="""\n${current}\n"""${appendingData[1]}`
   fs.writeFileSync("current.py", data)
 } catch (err) {
   console.error(err)

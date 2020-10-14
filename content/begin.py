@@ -1,5 +1,4 @@
 import tracemalloc
 tracemalloc.start()
-import time
-startTime = time.time()
-
+import timeit
+print('Your Output Here :')

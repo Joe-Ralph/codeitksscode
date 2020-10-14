@@ -13,5 +13,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "python-shell": "^2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.5"
   }
 }
