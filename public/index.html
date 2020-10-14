@@ -17,7 +17,14 @@
   <body>
     <nav class="uk-navbar-container uk-margin" uk-navbar>
       <div class="uk-navbar-center">
-        <a class="uk-navbar-item uk-logo" href="#">KSS Coder</a>
+        <a class="uk-navbar-item uk-logo" href="index.html">KSS Coder</a>
+        <div class="uk-navbar-center-right">
+          <div>
+            <ul class="uk-navbar-nav">
+              <li><a href="ide.html">IDE</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </nav>
     <div class="uk-container">
@@ -28,30 +35,39 @@
           </label>
           <div class="uk-form-controls">
             <select class="uk-select" id="form-stacked-select">
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
-              <option value="1">Option</option>
+              <option value="antonfrancisjeejo">Anton Francis Jeejo NV</option>
+              <option value=" ">Bala Arun</option>
+              <option value="ABIBV">Balaji Anand B</option>
+              <option value="Balaji0112">Balaji G</option>
+              <option value="Dharangan">Dharangan</option>
+              <option value="GanthimathiV">Ganthimathi V</option>
+              <option value="Jesuva">Jesuva Arockiadoss S</option>
+              <option value="Kabileshj">Kabilesh J</option>
+              <option value="J-mahasakthi">Mahaskthi J</option>
+              <option value="nanthiny-ta10">Nanthiny TA</option>
+              <option value="Nivetha64">Nivetha N</option>
+              <option value="pavi2004">Pavitra T</option>
+              <option value="Priyadharshini22">Priyadharshini L</option>
+              <option value="Rajanayaki">Rajanayaki S</option>
+              <option value="rpd-tweet">Rajapriyadharshini MS</option>
+              <option value="CMRathika">Rathika M</option>
+              <option value="roshinir1705">Roshini R</option>
+              <option value="rupashri-s145">Rupa Shri</option>
+              <option value="Joe-Ralph">Sahaya Joe Ralphin X</option>
+              <option value=" ">Sam Selvan</option>
+              <option value="Sankareeswari-99">Sankareshwari M</option>
+              <option value=" ">Saravanan B</option>
+              <option value="shanthivalli">Shanthi A</option>
+              <option value="abianusha19">Shenbaga Abirami B</option>
+              <option value="shiva7-6">Shiva A</option>
+              <option value="sundarlucifer">Sundar S</option>
+              <option value=" ">Swetha S</option>
+              <option value="Yogessh3">Yogessh V</option>
             </select>
           </div>
         </div>
         <div class="uk-margin">
-          <label class="uk-form-label" for="dateforprogram">
-            Pick Date
-          </label>
+          <label class="uk-form-label" for="dateforprogram"> Pick Date </label>
           <div class="uk-form-controls">
             <input type="date" class="uk-input" id="dateforprogram" />
           </div>
@@ -60,7 +76,13 @@
           <div class="uk-form-label">Choose Question</div>
           <div class="uk-form-controls uk-form-controls-text">
             <label>
-              <input class="uk-radio" type="radio" name="radio1" value="01" checked />
+              <input
+                class="uk-radio"
+                type="radio"
+                name="radio1"
+                value="01"
+                checked
+              />
               Question 01
             </label>
             <br />
@@ -70,7 +92,7 @@
             </label>
             <br />
             <label>
-              <input class="uk-radio" type="radio" name="radio1" value="03"/>
+              <input class="uk-radio" type="radio" name="radio1" value="03" />
               Question 03
             </label>
           </div>
@@ -82,7 +104,6 @@
       <div class="outputContainer uk-container uk-margin">
         <ul uk-tab>
           <li class="uk-active"><a href="#">Results</a></li>
-          <li><a href="#">Code</a></li>
         </ul>
         <code id="results" class="container"></code>
       </div>
@@ -90,34 +111,59 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       $(document).ready(() => {
-        $('.outputContainer').hide()
+        $(".outputContainer").hide();
         Date.prototype.toDateInputValue = function () {
-          var local = new Date(this)
-          local.setMinutes(this.getMinutes() - this.getTimezoneOffset())
-          return local.toJSON().slice(0, 10)
-        }
-        $('#dateforprogram').val(new Date().toDateInputValue())
-      })
+          var local = new Date(this);
+          local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+          return local.toJSON().slice(0, 10);
+        };
+        $("#dateforprogram").val(new Date().toDateInputValue());
+      });
 
-      $('#submitBtn').on('click', (e) => {
-        e.preventDefault()
-        const userTag = $('select option:selected').val()
-        console.log(userTag)
-        const selectedDate = $('#dateforprogram').val().split('-')
-        const questionNumber = $('input[name="radio1"]:checked').val()
-        const date = new Date(
-          selectedDate[0],
-          selectedDate[1] - 1,
-          selectedDate[2],
-        )
-        const githubURL = `https://raw.githubusercontent.com/${userTag}/Codeit-KSS/main/${selectedDate[0]}_${selectedDate[1]}_${selectedDate[2]}_${questionNumber}`
-        console.log(githubURL)
-        const name = $('#form-stacked-select').val()
-        // $.post('localhost:3000/', {
-        //     name,
-
-        // }, (data, status) => {})
-      })
+      $("#submitBtn").on("click", (e) => {
+        e.preventDefault();
+        const userTag = $("select option:selected").val();
+        console.log(userTag);
+        const selectedDate = $("#dateforprogram").val().split("-");
+        const questionNumber = $('input[name="radio1"]:checked').val();
+        const githubURL = `https://raw.githubusercontent.com/${userTag}/Codeit-KSS/main/${selectedDate[0]}_${selectedDate[1]}_${selectedDate[2]}_${questionNumber}`;
+        console.log(githubURL);
+        $.ajax({
+          url: githubURL,
+          type: "GET",
+          success: (data, status) => {
+            const code = data
+            $.ajax({
+              url: "http://localhost:3000/api/",
+              type: "POST",
+              data: {
+                code,
+              },
+              success: (data, status) => {
+               console.log(data)
+               if ( data.result){
+                 $('#results').html(data.result)
+                 $(".outputContainer").show();
+               }
+              },
+              error: (jqXHR, textStatus, errorThrown) => {
+                $(".outputContainer").hide();
+              },
+            });
+          },
+          error: (jqXHR, textStatus, errorThrown) => {
+            if (jqXHR.status == 404 || errorThrown == "Not Found") {
+              $(".outputContainer").hide();
+              UIkit.notification({
+                message: "Not Found",
+                status: "danger",
+                pos: "top-right",
+                timeout: 5000,
+              });
+            }
+          },
+        });
+      });
     </script>
   </body>
 </html>
