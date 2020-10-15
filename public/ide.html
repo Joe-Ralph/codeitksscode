@@ -13,6 +13,12 @@
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+    <style>
+      .CodeFlask .CodeFlask__textarea {
+        white-space: nowrap;
+        overflow-x: hidden;
+      }
+    </style>
   </head>
   <body>
     <nav class="uk-navbar-container uk-margin" uk-navbar>
@@ -28,7 +34,60 @@
       </div>
     </nav>
     <div class="uk-container">
+      <div id="codeeditor">
+        <textarea class="uk-textarea" name="" id="" cols="20" rows="20"></textarea>
+      </div>
+      <button id="submitBtn" class="uk-button uk-button-primary uk-margin">
+        Submit Code
+      </button>
+      <div class="outputContainer uk-container uk-margin">
+        <ul uk-tab>
+          <li class="uk-active"><a href="#">Results</a></li>
+        </ul>
+        <code id="results" class="container"><pre></pre></code>
+      </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js"
+      integrity="sha512-9+422Bs3A87UkWfp+qV80Nfv9arhbCXKY1rxrF2seorI36mIIstMiuBfyKLF1yH1nnzQkEWq2xrzT4XU3Z+vrA=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/components/prism-python.min.js"
+      integrity="sha512-EXseTM1JV8e3AonU5PfOUmzbPkUTRm4c4hVxv206gVeWZE/FwzSQBNWrUBaHsN3Idq9k76BEjUlXpluX1UFx6Q=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(() => {
+        $(".outputContainer").hide()
+        $('textarea').val("")
+        // let codeArea = new CodeFlask("#codeeditor", {
+          // lineNumbers: true,
+        // });
+      });
+      $("#submitBtn").on("click", (e) => {
+
+        e.preventDefault();
+        $.ajax({
+              url: "http://localhost:3000/api/",
+              type: "POST",
+              data: {
+                code : $('textarea').val(),
+              },
+              success: (data, status) => {
+                console.log(data);
+                if (data.result) {
+                  $("#results pre").text(data.result);
+                  $(".outputContainer").show();
+                }
+              },
+              error: (jqXHR, textStatus, errorThrown) => {
+                $(".outputContainer").hide();
+              },
+            });
+      });
+    </script>
   </body>
 </html>

@@ -105,7 +105,7 @@
         <ul uk-tab>
           <li class="uk-active"><a href="#">Results</a></li>
         </ul>
-        <code id="results" class="container"></code>
+        <code id="results" class="container"><pre></pre></code>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -122,6 +122,7 @@
 
       $("#submitBtn").on("click", (e) => {
         e.preventDefault();
+        $("#results pre").empty();
         const userTag = $("select option:selected").val();
         console.log(userTag);
         const selectedDate = $("#dateforprogram").val().split("-");
@@ -132,7 +133,7 @@
           url: githubURL,
           type: "GET",
           success: (data, status) => {
-            const code = data
+            const code = data;
             $.ajax({
               url: "http://localhost:3000/api/",
               type: "POST",
@@ -140,16 +141,16 @@
                 code,
               },
               success: (data, status) => {
-               console.log(data)
-               if ( data.result){
-                 $('#results').html(data.result)
-                 $(".outputContainer").show();
-               }
+                console.log(data);
+                if (data.result) {
+                  $("#results pre").text(data.result);
+                  $(".outputContainer").show();
+                }
               },
               error: (jqXHR, textStatus, errorThrown) => {
                 $(".outputContainer").hide();
               },
-            });
+            })
           },
           error: (jqXHR, textStatus, errorThrown) => {
             if (jqXHR.status == 404 || errorThrown == "Not Found") {
