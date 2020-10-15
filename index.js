@@ -14,7 +14,15 @@ app.use(
 
 app.use(express.static("public"));
 
+app.use((req,res,next) => {
+  res.header('Access-Control-Allow-Origin','*')
+  res.header('Access-Control-Allow-Headers','Content-Type,Authorization')
+  res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE')
+  next()
+})
+
 app.post("/api/",(req, res) => {
+  messages=[]
   if (req.body.code === undefined){
     return res.status(400).send("Bad Request")
   }
@@ -31,6 +39,11 @@ app.post("/api/",(req, res) => {
 
   const pyshell = new PythonShell("current.py");
 
+  setTimeout(()=>{
+    pyshell.kill()
+    messages = ["TLE ERROR!!!"]
+  },5000)
+
   pyshell.on("message", function (message) {
     messages.push(message)
   });
@@ -39,11 +52,9 @@ app.post("/api/",(req, res) => {
     if (err) {
       return res.json({result: err.traceback})
     } else {
-      res.json({result: messages.join("\n")})
-      messages = []
+      return res.json({result: messages.join("\n")})
     }
   });
- 
 });
 
 app.listen(3000);

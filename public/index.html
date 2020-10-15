@@ -100,6 +100,7 @@
         <button id="submitBtn" class="uk-button uk-button-primary">
           Submit
         </button>
+        <div id="spinner" uk-spinner></div>
       </form>
       <div class="outputContainer uk-container uk-margin">
         <ul uk-tab>
@@ -112,6 +113,7 @@
     <script>
       $(document).ready(() => {
         $(".outputContainer").hide();
+        $('#spinner').hide()
         Date.prototype.toDateInputValue = function () {
           var local = new Date(this);
           local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -122,6 +124,7 @@
 
       $("#submitBtn").on("click", (e) => {
         e.preventDefault();
+        $('#spinner').show()
         $("#results pre").empty();
         const userTag = $("select option:selected").val();
         console.log(userTag);
@@ -142,6 +145,7 @@
               },
               success: (data, status) => {
                 console.log(data);
+                $('#spinner').hide()
                 if (data.result) {
                   $("#results pre").text(data.result);
                   $(".outputContainer").show();
@@ -149,12 +153,14 @@
               },
               error: (jqXHR, textStatus, errorThrown) => {
                 $(".outputContainer").hide();
+                $('#spinner').hide()
               },
             })
           },
           error: (jqXHR, textStatus, errorThrown) => {
             if (jqXHR.status == 404 || errorThrown == "Not Found") {
               $(".outputContainer").hide();
+              $('#spinner').hide()
               UIkit.notification({
                 message: "Not Found",
                 status: "danger",

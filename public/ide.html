@@ -40,6 +40,7 @@
       <button id="submitBtn" class="uk-button uk-button-primary uk-margin">
         Submit Code
       </button>
+      <div id="spinner" uk-spinner></div>
       <div class="outputContainer uk-container uk-margin">
         <ul uk-tab>
           <li class="uk-active"><a href="#">Results</a></li>
@@ -63,13 +64,16 @@
       $(document).ready(() => {
         $(".outputContainer").hide()
         $('textarea').val("")
+        $('#spinner').hide()
         // let codeArea = new CodeFlask("#codeeditor", {
           // lineNumbers: true,
         // });
       });
       $("#submitBtn").on("click", (e) => {
-
-        e.preventDefault();
+        $('#spinner').show()
+        $("#results pre").empty()
+        $(".outputContainer").hide()
+        e.preventDefault()
         $.ajax({
               url: "http://localhost:3000/api/",
               type: "POST",
@@ -77,14 +81,16 @@
                 code : $('textarea').val(),
               },
               success: (data, status) => {
-                console.log(data);
+                console.log(data)
                 if (data.result) {
                   $("#results pre").text(data.result);
-                  $(".outputContainer").show();
+                  $('#spinner').hide()
+                  $(".outputContainer").show()
                 }
               },
               error: (jqXHR, textStatus, errorThrown) => {
-                $(".outputContainer").hide();
+                $('#spinner').hide()
+                $(".outputContainer").hide()
               },
             });
       });
