@@ -3,48 +3,28 @@ tracemalloc.start()
 import timeit
 print('Your Output Here :')
 codetotest="""
-nums1 = [1, 2, 3, 0, 0, 0]
-nums2 = [4, 5, 6]
-m = 3
-n = 3
+# UNDO REDO PROBLEM
+inputList = ['WRITE A', 'WRITE B', 'WRITE C', 'UNDO', 'READ', 'REDO', 'READ']
 
-
-def mergeTwoLists(arr1,arr2,m,n):
-    while m>0 and n>0:
-        if arr1[m-1] > arr2[n-1]:
-            arr1[m+n-1] = arr1[m-1]
-            m-=1
+def solution(inputList):
+    stack=[]
+    anslist=[]
+    for i in inputList:
+        if i == "UNDO":
+            x = anslist.pop()
+            stack.append(x)
+        elif i == "REDO":
+            x = stack.pop()
+            anslist.append(x)
+        elif i == "READ":
+            print("".join(anslist),end=" ")
         else:
-            arr1[m+n-1] = arr2[n-1]
-            n-=1
+            anslist.append(i.split(' ')[1])
+    print()
 
-    while n>0:
-        arr1[m+n-1] = arr2[n-1]
-        n-=1
+solution(inputList)
 
-    return arr1
-
-print(mergeTwoLists(nums1,nums2,m,n))
-            
-
-'''
-Concept need to be revised: ARRAY, POINTERS
-Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
-Note:
-The number of elements initialized in nums1 and nums2 are m and n respectively.
-You may assume that nums1 has enough space (size that is equal to m + n) to hold additional elements from nums2.
-Example:
-Input:
-nums1 = [1,2,3,0,0,0], m = 3
-nums2 = [2,5,6],       n = 3
-Output: [1,2,2,3,5,6]
-
-Constraints:
--109 <= nums1[i], nums2[i] <= 109
-nums1.length == m + n
-nums2.length == n
-
-'''
+#ans AB ABC
 """
 print()
 elapsed_time = timeit.timeit(codetotest, number=1)/1
