@@ -3,36 +3,29 @@ tracemalloc.start()
 import timeit
 print('Your Output Here :')
 codetotest="""
-# UNDO REDO PROBLEM
-inputList = ['WRITE A', 'WRITE B', 'WRITE C', 'UNDO', 'READ', 'REDO', 'READ']
+def getNthFibonacci(n):
+    if n==0:
+        return 0
+    if n==1:
+        return 1
+    return getNthFibonacci(n-1) + getNthFibonacci(n-2)
 
-def solution(inputList):
-    stack=[]
-    anslist=[]
-    for i in inputList:
-        if i == "UNDO":
-            x = anslist.pop()
-            stack.append(x)
-        elif i == "REDO":
-            x = stack.pop()
-            anslist.append(x)
-        elif i == "READ":
-            print("".join(anslist),end=" ")
-        else:
-            anslist.append(i.split(' ')[1])
-    print()
+def getNthFibonacciMemoized(n, memo = {0:0,1:1}):
+    if n in memo:
+        return memo[n]
+    else:
+        memo[n] = getNthFibonacciMemoized(n-1,memo)+getNthFibonacciMemoized(n-2,memo)
+    return memo[n]
 
-solution(inputList)
 
-#ans AB ABC
+print(getNthFibonacci(8))
 """
 print()
 elapsed_time = timeit.timeit(codetotest, number=1)/1
 print()
 # executionTime = (int(time.time() *1000) - startTime)
 # print(int(time.time() *1000))
-print('Execution time in seconds: ',end ="")
-print(elapsed_time)
+print('Execution time in seconds: '+str(elapsed_time)+" seconds")
 current, peak = tracemalloc.get_traced_memory()
-print("Max Memory usage was "+ str(peak / 10**6)+ " MB")
+print("Max Memory usage was "+ str(peak)+ " Bytes")
 tracemalloc.stop()
