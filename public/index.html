@@ -13,95 +13,58 @@
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.6/ace.min.js"
+      integrity="sha512-kiECX53fzPhY5cnGzxTUZUOefsjR7gY3SD2OOgcsxZ0nAMZ3e+lkqxhXzGAFm05KjIaQ49/OyNryGTcbLb2V9w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <style>
+      .CodeFlask .CodeFlask__textarea {
+        white-space: nowrap;
+        overflow-x: hidden;
+      }
+
+      #editor {
+        position: relative;
+        width: auto;
+        height: 400px;
+      }
+    </style>
   </head>
   <body>
-    <nav class="uk-navbar-container uk-margin" uk-navbar>
+    <div class="uk-margin-medium-top uk-margin-small-bottom">
+          <nav class="uk-navbar-container uk-margin-large" uk-navbar>
       <div class="uk-navbar-center">
-        <a class="uk-navbar-item uk-logo" href="index.html">KSS Coder</a>
+        <!--         <a class="uk-navbar-item uk-logo" href="index.html">KSS Coder</a> -->
         <div class="uk-navbar-center-right">
           <div>
             <ul class="uk-navbar-nav">
-              <li><a href="ide.html">IDE</a></li>
+              <li><h3>Python IDE</h3></li>
             </ul>
           </div>
         </div>
       </div>
     </nav>
-    <div class="uk-container">
-      <form class="uk-form-horizontal">
-        <div class="uk-margin">
-          <label class="uk-form-label" for="form-stacked-select">
-            Select Your Name
-          </label>
-          <div class="uk-form-controls">
-            <select class="uk-select" id="form-stacked-select">
-              <option value="antonfrancisjeejo">Anton Francis Jeejo NV</option>
-              <option value="bala-arun-s">Bala Arun</option>
-              <option value="ABIBV">Balaji Anand B</option>
-              <option value="Balaji0112">Balaji G</option>
-              <option value="Dharangan">Dharangan</option>
-              <option value="GanthimathiV">Ganthimathi V</option>
-              <option value="Jesuva">Jesuva Arockiadoss S</option>
-              <option value="Kabileshj">Kabilesh J</option>
-              <option value="J-mahasakthi">Mahaskthi J</option>
-              <option value="nanthiny-ta10">Nanthiny TA</option>
-              <option value="Nivetha64">Nivetha N</option>
-              <option value="pavi2004">Pavitra T</option>
-              <option value="Priyadharshini22">Priyadharshini L</option>
-              <option value="Rajanayaki">Rajanayaki S</option>
-              <option value="rpd-tweet">Rajapriyadharshini MS</option>
-              <option value="CMRathika">Rathika M</option>
-              <option value="roshinir1705">Roshini R</option>
-              <option value="rupashri-s145">Rupa Shri</option>
-              <option value="Joe-Ralph">Sahaya Joe Ralphin X</option>
-              <option value="reginasam2509">Sam Selvan</option>
-              <option value="Sankareeswari-99">Sankareshwari M</option>
-              <option value=" ">Saravanan B</option>
-              <option value="shanthivalli">Shanthi A</option>
-              <option value="abianusha19">Shenbaga Abirami B</option>
-              <option value="shiva7-6">Shiva A</option>
-              <option value="sundarlucifer">Sundar S</option>
-              <option value=" ">Swetha S</option>
-              <option value="Yogessh3">Yogessh V</option>
-            </select>
-          </div>
-        </div>
-        <div class="uk-margin">
-          <label class="uk-form-label" for="dateforprogram"> Pick Date </label>
-          <div class="uk-form-controls">
-            <input type="date" class="uk-input" id="dateforprogram" />
-          </div>
-        </div>
-        <div class="uk-margin">
-          <div class="uk-form-label">Choose Question</div>
-          <div class="uk-form-controls uk-form-controls-text">
-            <label>
-              <input
-                class="uk-radio"
-                type="radio"
-                name="radio1"
-                value="01"
-                checked
-              />
-              Question 01
-            </label>
-            <br />
-            <label>
-              <input class="uk-radio" type="radio" name="radio1" value="02" />
-              Question 02
-            </label>
-            <br />
-            <label>
-              <input class="uk-radio" type="radio" name="radio1" value="03" />
-              Question 03
-            </label>
-          </div>
-        </div>
-        <button id="submitBtn" class="uk-button uk-button-primary">
-          Submit
-        </button>
-        <div id="spinner" uk-spinner></div>
-      </form>
+    </div>
+    <div class="uk-container uk-margin-large .uk-padding-large">
+      <!--       <div id="codeeditor">
+        <textarea
+          class="uk-textarea"
+          name=""
+          id=""
+          cols="20"
+          rows="20"
+        ></textarea>
+      </div> -->
+      <div id="editor"># write some python here</div>
+      <button id="submitBtn" class="uk-button uk-button-primary uk-margin">
+        Run Code
+      </button>
+      <button id="clearBtn" class="uk-button uk-button-primary uk-margin">
+        Clear
+      </button>
+      <div id="spinner" uk-spinner></div>
       <div class="outputContainer uk-container uk-margin">
         <ul uk-tab>
           <li class="uk-active"><a href="#">Results</a></li>
@@ -110,65 +73,63 @@
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js"
+      integrity="sha512-9+422Bs3A87UkWfp+qV80Nfv9arhbCXKY1rxrF2seorI36mIIstMiuBfyKLF1yH1nnzQkEWq2xrzT4XU3Z+vrA=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/components/prism-python.min.js"
+      integrity="sha512-EXseTM1JV8e3AonU5PfOUmzbPkUTRm4c4hVxv206gVeWZE/FwzSQBNWrUBaHsN3Idq9k76BEjUlXpluX1UFx6Q=="
+      crossorigin="anonymous"
+    ></script>
     <script>
       $(document).ready(() => {
         $(".outputContainer").hide();
-        $('#spinner').hide()
-        Date.prototype.toDateInputValue = function () {
-          var local = new Date(this);
-          local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-          return local.toJSON().slice(0, 10);
-        };
-        $("#dateforprogram").val(new Date().toDateInputValue());
-      });
+        $("textarea").val("");
+        $("#spinner").hide();
+        var editor = ace.edit("editor");
+        editor.session.setMode("ace/mode/python");
+        editor.setTheme("ace/theme/chaos");
+        editor.setFontSize('18px');
+        // console.log(ace);
+        // let codeArea = new CodeFlask("#codeeditor", {
+        // lineNumbers: true,
+        // });
 
-      $("#submitBtn").on("click", (e) => {
-        e.preventDefault();
-        $('#spinner').show()
-        $("#results pre").empty();
-        const userTag = $("select option:selected").val();
-        console.log(userTag);
-        const selectedDate = $("#dateforprogram").val().split("-");
-        const questionNumber = $('input[name="radio1"]:checked').val();
-        const githubURL = `https://raw.githubusercontent.com/${userTag}/Codeit-KSS/main/${selectedDate[0]}_${selectedDate[1]}_${selectedDate[2]}_${questionNumber}`;
-        console.log(githubURL);
-        $.ajax({
-          url: githubURL,
-          type: "GET",
-          success: (data, status) => {
-            const code = data;
-            $.ajax({
-              url: "http://172.21.0.251:3000/api/",
-              type: "POST",
-              data: {
-                code,
-              },
-              success: (data, status) => {
-                console.log(data);
-                $('#spinner').hide()
-                if (data.result) {
-                  $("#results pre").text(data.result);
-                  $(".outputContainer").show();
-                }
-              },
-              error: (jqXHR, textStatus, errorThrown) => {
-                $(".outputContainer").hide();
-                $('#spinner').hide()
-              },
-            })
-          },
-          error: (jqXHR, textStatus, errorThrown) => {
-            if (jqXHR.status == 404 || errorThrown == "Not Found") {
+        $("#clearBtn").on("click", (e) => {
+          e.preventDefault();
+          $("#results pre").empty();
+          $(".outputContainer").hide();
+          editor.setValue("# write some python here");
+        });
+
+        $("#submitBtn").on("click", (e) => {
+          $("#spinner").show();
+          $("#results pre").empty();
+          $(".outputContainer").hide();
+          e.preventDefault();
+          const code = editor.getValue();
+          $.ajax({
+            url: "https://codeitksscode.glitch.me/api/",
+            type: "POST",
+            data: {
+              code: code,
+            },
+            success: (data, status) => {
+              console.log(data);
+              if (data.result) {
+                $("#results pre").text(data.result);
+                $("#spinner").hide();
+                $(".outputContainer").show();
+              }
+            },
+            error: (jqXHR, textStatus, errorThrown) => {
+              $("#spinner").hide();
               $(".outputContainer").hide();
-              $('#spinner').hide()
-              UIkit.notification({
-                message: "Not Found",
-                status: "danger",
-                pos: "top-right",
-                timeout: 5000,
-              });
-            }
-          },
+            },
+          });
         });
       });
     </script>
